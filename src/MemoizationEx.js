@@ -5,13 +5,13 @@ const memoObj = {};
 const sumFun = function (x, y) {
   return new Promise((resolve, reject) => {
     console.log(memoObj);
-  if (memoObj[x+"+"+y]) {
-    console.log(memoObj[x+"+"+y]);
-    resolve(memoObj[x+"+"+y]);
-  }
+    if (memoObj[x + "+" + y]) {
+      console.log(memoObj[x + "+" + y]);
+      resolve(memoObj[x + "+" + y]);
+    }
     setTimeout(() => {
       let res = x + y;
-      memoObj[x+"+"+y] = res;
+      memoObj[x + "+" + y] = res;
       resolve(res);
     }, 2000);
   });
@@ -26,14 +26,21 @@ const Parent = function (props) {
     return setCount((c) => c + 1);
   }
 
-  const increase = useCallback(increaseByOne, [input1, input2]);
+  const memoVar = useMemo(() => {
+    let value = 0;
+    for (let i = 0; i < 1000000; i++) {
+      value++;
+    }
+    return value;
+  }, []);
+  const increase = useCallback(increaseByOne, [count]);
   console.log("rerendered");
   return (
     <div>
       <p>
-        parent Componen :{count}
+        parent Componen :{count} : {memoVar}
         <br />
-        <input
+        {/* <input
           type="number"
           onChange={(e) => {
             setInput1(e.target.value);
@@ -45,16 +52,17 @@ const Parent = function (props) {
           onChange={(e) => {
             setInput2(e.target.value);
           }}
-        />
+        /> */}
         <button
           onClick={() => {
-            sumFun(+input1, +input2).then((res) => setCount(res)); // Applying Memomization in plain JS
+            // sumFun(+input1, +input2).then((res) => setCount(res)); // Applying Memomization in plain JS
+            increaseByOne();
           }}
         >
           click me +1
         </button>
       </p>
-      {/* <Child count={count} increase={increase} /> */}
+      <Child count={count} increase={increase} />
     </div>
   );
 };

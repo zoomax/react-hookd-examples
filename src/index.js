@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Container from "./app";
+import ReducerEx from "./ReducerEx";
 
-ReactDOM.render(<Container />, document.getElementById("root"));
+ReactDOM.render(<ReducerEx />, document.getElementById("root"));

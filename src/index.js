@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import ReducerEx from "./ReducerEx";
+import MemoizationEx from "./MemoizationEx";
 
-ReactDOM.render(<ReducerEx />, document.getElementById("root"));
+ReactDOM.render(<MemoizationEx />, document.getElementById("root"));
